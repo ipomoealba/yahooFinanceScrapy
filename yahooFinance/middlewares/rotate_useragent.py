@@ -1,10 +1,10 @@
-# -*-coding:utf-8-*-
+# -*- coding: utf-8 -*-
+# @Author: chenhuawei
 
 import logging
 
-"""避免被ban策略之一：使用useragent池。
-
-使用注意：需在settings.py中进行相应的设置。
+"""
+    useragentPool
 """
 
 import random

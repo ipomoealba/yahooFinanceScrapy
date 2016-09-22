@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# @Author: chenhuawei
+
 import scrapy
 
 
@@ -5,7 +8,6 @@ class financeSpider(scrapy.Spider):
     name = 'history'
     allow_domain = ['tw.money.yahoo.com']
     start_urls = ['https://tw.money.yahoo.com/fund/offshore']
-    date_ = 'https://tw.money.yahoo.com/fund/download/F00000WSUY:FO?startDate=2016-08-08&endDate=2016-09-19'
 
     def parse(self, response):
         companyName = response.xpath('//div[@class="Ta-start Pstart-4"]/a/text()').extract()

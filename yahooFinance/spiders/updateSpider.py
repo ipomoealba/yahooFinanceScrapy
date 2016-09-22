@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# @Author: chenhuawei
+
 import scrapy
 from yahooFinance.items import YahoofinanceItem
 

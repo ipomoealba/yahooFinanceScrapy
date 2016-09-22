@@ -9,6 +9,9 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
+# -*- coding: utf-8 -*-
+# @Author: chenhuawei
+
 BOT_NAME = 'yahooFinance'
 
 SPIDER_MODULES = ['yahooFinance.spiders']
