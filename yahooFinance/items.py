@@ -1,8 +1,3 @@
-# Define here the models for your scraped items
-#
-# See documentation in:
-# http://doc.scrapy.org/en/latest/topics/items.html
-
 # -*- coding: utf-8 -*-
 # @Author: chenhuawei
 
@@ -10,14 +5,21 @@ import scrapy
 
 
 class YahoofinanceItem(scrapy.Item):
-
     fund_name = scrapy.Field()
     the_latest_data_update_time = scrapy.Field()
     net_worth = scrapy.Field()
     currency = scrapy.Field()
-    
-    # History data from yahoo.
-    # raw type: csv
-    fund_history = scrapy.Field()
     company_name = scrapy.Field()
 
+
+class HistoryItem(scrapy.Item):
+    fund_name = scrapy.Field()
+    date = scrapy.Field()
+    net_worth = scrapy.Field()
+    up_and_down = scrapy.Field()
+    the_percent_up_and_down = scrapy.Field()
+
+
+class ProxyItem(scrapy.Item):
+    ip = scrapy.Field()
+    port = scrapy.Field()
