@@ -51,15 +51,28 @@ class ProxyPipeline(object):
 
 
 class YahoofinancePipeline(object):
+    def __init__(self):
+        connection = pymongo.MongoClient(
+            settings['MONGODB_SERVER'],
+            settings['MONGODB_PORT']
+        )
+        self.db = connection[settings['MONGODB_DB']]
+        self.collection = self.db['tmp']
+
     def process_item(self, item, spider):
-        # 儲存路徑
-        # dir_path = '%s/%s' % (settings.IMAGES_STORE, spider.name)
-        # print('dir_path', dir_path)
-        #
-        # if not os.path.exists(dir_path):
-        #     os.makedirs(dir_path)
-        #
-        # # 以下預備儲存歷史資料
-        # for h in item[fund_history]:
-        #     pass
+
+        self.collection = self.db[item['name']]
+
+        valid = True
+
+        for data in item:
+            if not data:
+                valid = False
+                raise DropItem("Missing {0}!".format(data))
+        if valid:
+            self.collection.insert({'date': item['date'], 'net_worth': item['net_worth'],
+                                    'the_percent_up_and_down': item['the_percent_up_and_down'],
+                                    'up_and_down': item['up_and_down']})
+            log.msg("Question added to MongoDB database!",
+                    level=log.DEBUG, spider=spider)
         return item

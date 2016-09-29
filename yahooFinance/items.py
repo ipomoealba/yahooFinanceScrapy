@@ -13,7 +13,7 @@ class YahoofinanceItem(scrapy.Item):
 
 
 class HistoryItem(scrapy.Item):
-    fund_name = scrapy.Field()
+    name = scrapy.Field()
     date = scrapy.Field()
     net_worth = scrapy.Field()
     up_and_down = scrapy.Field()

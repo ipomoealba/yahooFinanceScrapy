@@ -83,9 +83,9 @@ MONGODB_SERVER = "localhost"
 MONGODB_PORT = 27017
 MONGODB_DB = "yahooFinance"
 # MONGODB_COLLECTION = "lastData"
-HTTP_PROXY ='http://127.0.0.1:8123'
+# HTTP_PROXY ='http://127.0.0.1:8123'
 # ITEM_PIPELINES = {'yahooFinance.pipeline.files.FilesPipeline': 1}
-FILES_STORE = '/Users/ipomoealba/Desktop/data'
+# FILES_STORE = '/Users/ipomoealba/Desktop/data'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
 # AUTOTHROTTLE_ENABLED = True

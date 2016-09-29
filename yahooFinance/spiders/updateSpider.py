@@ -30,12 +30,10 @@ class updateSpider(scrapy.Spider):
             item = YahoofinanceItem()
             print(r.xpath('.//td[@class="Ta-start txt-left id"]/a/text()').extract())
             item['fund_name'] = r.xpath('.//td[@class="Ta-start txt-left id"]/a/text()').extract()
-            item['the_latest_data_update_time'] = str(
-                r.xpath('.//td[@class="Ell Ta-c date"]/text()').extract())
-            # .replace(" ", "").replace("\n", "")
-            item['net_worth'] = str(r.xpath('.//td[@class="Ell Ta-c closeprice"]/text()').extract()) \
+            item['the_latest_data_update_time'] = r.xpath('.//td[@class="Ell Ta-c date"]/text()').extract()
+            item['net_worth'] = (r.xpath('.//td[@class="Ell Ta-c closeprice"]/text()').extract()) \
                 # .replace(" ","").replace( "\n", "")
-            item['currency'] = str(r.xpath('.//td[@class="Ell Ta-c"]/text()').extract()) \
+            item['currency'] = r.xpath('.//td[@class="Ell Ta-c"]/text()').extract() \
                 # .replace(" ", "").replace("\n", "")
             yield item
 
