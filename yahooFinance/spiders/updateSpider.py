@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # @Author: chenhuawei
-
+# 不爆肝聲明：以後有問題盡量別來找我....
 import scrapy
 from yahooFinance.items import YahoofinanceItem
 
@@ -28,21 +28,13 @@ class updateSpider(scrapy.Spider):
 
         for r in row:
             item = YahoofinanceItem()
-            print(r.xpath('.//td[@class="Ta-start txt-left id"]/a/text()').extract())
-            item['fund_name'] = r.xpath('.//td[@class="Ta-start txt-left id"]/a/text()').extract()
-            item['the_latest_data_update_time'] = r.xpath('.//td[@class="Ell Ta-c date"]/text()').extract()
-            item['net_worth'] = (r.xpath('.//td[@class="Ell Ta-c closeprice"]/text()').extract()) \
-                # .replace(" ","").replace( "\n", "")
-            item['currency'] = r.xpath('.//td[@class="Ell Ta-c"]/text()').extract() \
-                # .replace(" ", "").replace("\n", "")
-            yield item
+            print(r.xpath('.//td[@class="Ta-start txt-left id"]/a/text()').extract())[0]
+            item['fund_name'] = r.xpath('.//td[@class="Ta-start txt-left id"]/a/text()').extract()[0]
+            item['id'] = r.xpath('.//td[@class="Ta-start txt-left id"]/a/@href').extract()[0].replace('/fund/summary/','').replace(':FO','')
 
-            # test code
-            # r = row[0]
-            # item = YahoofinanceItem()
-            # item['fund_name'] = str(r.xpath('.//td[@class="Ta-start txt-left id"]/a/text()').extract())
-            # item['the_latest_data_update_time'] = str(r.xpath('.//td[@class="Ell Ta-c date"]/text()').extract()).replace(
-            #     " ", "").replace("\n", "")
-            # item['net_worth'] = str(r.xpath('.//td[@class="Ell Ta-c closeprice"]/text()').extract()).replace(" ","").replace("\n","")
-            # item['currency'] = str(r.xpath('.//td[@class="Ell Ta-c"]/text()').extract()).replace(" ","").replace("\n","")
-            # return item
+            # 這段別亂砍！！！說不定以後你們會用到！！ (by樺威
+            # item['the_latest_data_update_time'] = r.xpath('.//td[@class="Ell Ta-c date"]/text()').extract()
+            # item['net_worth'] = (r.xpath('.//td[@class="Ell Ta-c closeprice"]/text()').extract()) \
+                # .replace(" ","").replace( "\n", "")
+            item['currency'] = r.xpath('.//td[@class="Ell Ta-c"]/text()').extract()[0]
+            yield item

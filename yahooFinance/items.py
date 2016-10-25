@@ -10,9 +10,11 @@ class YahoofinanceItem(scrapy.Item):
     net_worth = scrapy.Field()
     currency = scrapy.Field()
     company_name = scrapy.Field()
-
+    id = scrapy.Field()
 
 class HistoryItem(scrapy.Item):
+    # chinese_name = scrapy.Field()
+    # currency = scrapy.Field()
     name = scrapy.Field()
     date = scrapy.Field()
     net_worth = scrapy.Field()

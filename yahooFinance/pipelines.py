@@ -18,7 +18,7 @@ class MongoDBPipeline(object):
             settings['MONGODB_PORT']
         )
         db = connection[settings['MONGODB_DB']]
-        self.collection = db["last_data"]
+        self.collection = db["fund_profile"]
 
     def process_item(self, item, spider):
         valid = True
@@ -60,19 +60,20 @@ class YahoofinancePipeline(object):
         self.collection = self.db['tmp']
 
     def process_item(self, item, spider):
-
         self.collection = self.db[item['name']]
-
         valid = True
-
         for data in item:
             if not data:
                 valid = False
                 raise DropItem("Missing {0}!".format(data))
         if valid:
-            self.collection.insert({'date': item['date'], 'net_worth': item['net_worth'],
-                                    'the_percent_up_and_down': item['the_percent_up_and_down'],
-                                    'up_and_down': item['up_and_down']})
-            log.msg("Question added to MongoDB database!",
-                    level=log.DEBUG, spider=spider)
+            if self.collection.find({'date': item['date']}).count() > 0:
+                log.msg("[!] the Data has in the collection %s" % item['name'], level=log.DEBUG, spider=spider)
+            else:
+
+                self.collection.insert({'date': item['date'], 'net_worth': item['net_worth'],
+                                        'up_and_down': item['up_and_down'],
+                                        'the_percent_up_and_down': item['the_percent_up_and_down'], })
+                log.msg("[!] NewData added to MongoDB database!",
+                        level=log.DEBUG, spider=spider)
         return item

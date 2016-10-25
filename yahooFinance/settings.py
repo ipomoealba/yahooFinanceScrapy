@@ -29,7 +29,7 @@ ROBOTSTXT_OBEY = True
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
 
-DOWNLOAD_DELAY = 2
+DOWNLOAD_DELAY = 1.5
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 # CONCURRENT_REQUESTS = 32
