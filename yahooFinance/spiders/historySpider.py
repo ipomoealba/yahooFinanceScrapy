@@ -5,9 +5,11 @@ import csv
 import scrapy
 from yahooFinance.items import HistoryItem
 from pymongo import MongoClient
+from datetime import datetime, timedelta
 
+date_week_ago = datetime.now() - timedelta(days=7)
 url_download_head = "https://tw.money.yahoo.com/fund/download/"
-url_download_tail = "?startDate=1900-01-01&endDate=2016-09-19"
+url_download_tail = "?startDate=1900-01-01&endDate=" + str(date_week_ago.isoformat()[:10])
 
 
 class financeSpider(scrapy.Spider):
