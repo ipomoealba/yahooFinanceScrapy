@@ -44,5 +44,5 @@ class updateSpider(scrapy.Spider):
             # item['net_worth'] = (r.xpath('.//td[@class="Ell Ta-c closeprice"]/text()').extract()) \
             # .replace(" ","").replace( "\n", "")
             item['currency'] = r.xpath(
-                './/td[@class="Ell Ta-c"]/text()').extract()[0]
+                './/td[@class="Ell Ta-c"]/text()').extract()[0].replace(" ","").replace("\n","")
             yield item
