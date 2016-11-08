@@ -29,7 +29,8 @@ class updateSpider(scrapy.Spider):
     def parse_fund(self, response):
         row = response.xpath(
             '//tr[@class="Bgc-w alter-bg"]| //tr[@class="Bgc-w"]')
-
+        cur = [u'日圓',u'英鎊',u'新台幣',u'美元',u'港幣',u'韓元',u'加拿大幣',u'新加坡幣',u'人民幣',u'澳幣',u'印尼盾',u'泰銖',u'馬來西亞幣',u'菲律賓披索',u'歐元',u'越南盾']
+        cure = ['JPY','GBP','NTD','USD','HKD','KRW','CAD','SGD','CNY','AUD','IDR','THB','MYR','PHP','EUR','VND']
         for r in row:
             item = YahoofinanceItem()
             print(
@@ -43,6 +44,14 @@ class updateSpider(scrapy.Spider):
             # item['the_latest_data_update_time'] = r.xpath('.//td[@class="Ell Ta-c date"]/text()').extract()
             # item['net_worth'] = (r.xpath('.//td[@class="Ell Ta-c closeprice"]/text()').extract()) \
             # .replace(" ","").replace( "\n", "")
-            item['currency'] = r.xpath(
+            curC = r.xpath(
                 './/td[@class="Ell Ta-c"]/text()').extract()[0].replace(" ","").replace("\n","")
+            for i in range(0,len(cur)):
+                # print cur[i]
+		# print item['currency']
+		if curC == cur[i]:
+	            print curC + " " + cure[i]
+		    item['currency'] = cure[i]
+		#else:
+		  #  item['currency'] = "GG"
             yield item
