@@ -30,9 +30,9 @@ class updateSpider(scrapy.Spider):
         row = response.xpath(
             '//tr[@class="Bgc-w alter-bg"]| //tr[@class="Bgc-w"]')
         cur = [u'日圓', u'英鎊', u'新台幣', u'美元', u'港幣', u'韓元', u'加拿大幣', u'新加坡幣', u'人民幣',
-               u'澳幣', u'印尼盾', u'泰銖', u'馬來西亞幣', u'菲律賓披索', u'歐元', u'越南盾', u'南非幣', u'紐西蘭幣',u'瑞士法郎']
+               u'澳幣', u'印尼盾', u'泰銖', u'馬來西亞幣', u'菲律賓披索', u'歐元', u'越南盾', u'南非幣', u'紐西蘭幣', u'瑞士法郎', u'瑞典幣']
         cure = ['JPY', 'GBP', 'NTD', 'USD', 'HKD', 'KRW', 'CAD', 'SGD', 'CNY',
-                'AUD', 'IDR', 'THB', 'MYR', 'PHP', 'EUR', 'VND', 'ZAR', 'NZD', 'SFR']
+                'AUD', 'IDR', 'THB', 'MYR', 'PHP', 'EUR', 'VND', 'ZAR', 'NZD', 'SFR', 'SEK']
         for r in row:
             item = YahoofinanceItem()
             print(
