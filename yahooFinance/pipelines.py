@@ -12,6 +12,7 @@ from scrapy.conf import settings
 
 
 class MongoDBPipeline(object):
+
     def __init__(self):
         connection = pymongo.MongoClient(
             settings['MONGODB_SERVER'],
@@ -27,9 +28,12 @@ class MongoDBPipeline(object):
                 valid = False
                 raise DropItem("Missing {0}!".format(data))
         if valid:
-            self.collection.insert(dict(item))
-            log.msg("Question added to MongoDB database!",
-                    level=log.DEBUG, spider=spider)
+            if self.collection.find({'fund_name': item['fund_name']}).count() > 0:
+                print 'this is in db'
+            else:
+                self.collection.insert(dict(item))
+                log.msg("Question added to MongoDB database!",
+                        level=log.DEBUG, spider=spider)
         return item
 
 
@@ -41,7 +45,8 @@ class ProxyPipeline(object):
 
             proxySpider = ProxySpider(spider)
             proxy = {'ip': item['ip'], 'port': item['port']}
-            proxy_all = {'ip': item['ip'], 'port': item['port'], 'proxyId': self.proxyId}
+            proxy_all = {'ip': item['ip'], 'port': item[
+                'port'], 'proxyId': self.proxyId}
             if proxySpider.db_helper.insert(proxy, proxy_all) == True:  # 插入数据
                 self.proxyId += 1
             return item
@@ -51,6 +56,7 @@ class ProxyPipeline(object):
 
 
 class YahoofinancePipeline(object):
+
     def __init__(self):
         connection = pymongo.MongoClient(
             settings['MONGODB_SERVER'],
@@ -68,7 +74,8 @@ class YahoofinancePipeline(object):
                 raise DropItem("Missing {0}!".format(data))
         if valid:
             if self.collection.find({'date': item['date']}).count() > 0:
-                log.msg("[!] the Data has in the collection %s" % item['name'], level=log.DEBUG, spider=spider)
+                log.msg("[!] the Data has in the collection %s" %
+                        item['name'], level=log.DEBUG, spider=spider)
             else:
 
                 self.collection.insert({'date': item['date'], 'net_worth': item['net_worth'],

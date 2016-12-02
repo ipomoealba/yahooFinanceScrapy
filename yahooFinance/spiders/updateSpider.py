@@ -35,14 +35,11 @@ class updateSpider(scrapy.Spider):
                 'AUD', 'IDR', 'THB', 'MYR', 'PHP', 'EUR', 'VND', 'ZAR', 'NZD', 'SFR', 'SEK']
         for r in row:
             item = YahoofinanceItem()
-            print(
-                r.xpath('.//td[@class="Ta-start txt-left id"]/a/text()').extract())[0]
             item['fund_name'] = r.xpath(
                 './/td[@class="Ta-start txt-left id"]/a/text()').extract()[0]
             item['id'] = r.xpath('.//td[@class="Ta-start txt-left id"]/a/@href').extract()[
                 0].replace('/fund/summary/', '').replace(':FO', '')
 
-            # 這段別亂砍！！！說不定以後你們會用到！！ (by樺威
             # item['the_latest_data_update_time'] = r.xpath('.//td[@class="Ell Ta-c date"]/text()').extract()
             # item['net_worth'] = (r.xpath('.//td[@class="Ell Ta-c closeprice"]/text()').extract()) \
             # .replace(" ","").replace( "\n", "")
@@ -52,7 +49,7 @@ class updateSpider(scrapy.Spider):
                 # print cur[i]
                 # print item['currency']
                 if curC == cur[i]:
-                    print curC + " " + cure[i]
+                    # print curC + " " + cure[i]
                     item['currency'] = cure[i]
                 # else:
                   #  item['currency'] = "GG"
