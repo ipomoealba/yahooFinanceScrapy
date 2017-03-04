@@ -9,7 +9,8 @@ from datetime import datetime, timedelta
 
 date_week_ago = datetime.now() - timedelta(days=7)
 url_download_head = "https://tw.money.yahoo.com/fund/download/"
-url_download_tail = "?startDate=1900-01-01&endDate=" + str(date_week_ago.isoformat()[:10])
+url_download_tail = "?startDate=1900-01-01&endDate=" + \
+    str(date_week_ago.isoformat()[:10])
 
 
 class financeSpider(scrapy.Spider):
@@ -48,7 +49,7 @@ class financeSpider(scrapy.Spider):
             yield scrapy.Request(str(url_download_head +
                                      str(r.xpath('.//td[@class="Ta-start txt-left id"]/a/@href').extract()).split('/')[
                                          3].split("'")[
-                                         0] + url_download_tail),callback=self.parse_history)
+                                         0] + url_download_tail), callback=self.parse_history)
 
     def parse_history(self, response):
         raw_data = response.body.split()[1:]
@@ -60,7 +61,8 @@ class financeSpider(scrapy.Spider):
             # ************ Not Used ***************
             item['name'] = response.url.replace(url_download_head, '').replace(
                 url_download_tail, '').replace(':FO', '')
-            item['date'] = i.split(',')[0]
+            item['date'] = datetime.strptime(
+                i.split(',')[0], "%Y/%m/%d")
             item['net_worth'] = i.split(',')[1]
             item['up_and_down'] = i.split(',')[2]
             item['the_percent_up_and_down'] = i.split(',')[3]
